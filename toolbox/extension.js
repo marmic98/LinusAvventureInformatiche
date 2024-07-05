@@ -33,9 +33,10 @@ function activate(context) {
 
         // Crea il file .c se non esiste
         if (!fs.existsSync(filePath)) {
-            fs.writeFileSync(filePath);
+            fs.writeFileSync(filePath, '');
+            console.log('file creato')
         }
-
+        console.log('file created because not loaded before')
         let document = await vscode.workspace.openTextDocument(vscode.Uri.file(filePath));
         await vscode.window.showTextDocument(document, vscode.ViewColumn.Two);
 
