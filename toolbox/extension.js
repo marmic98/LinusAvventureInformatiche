@@ -53,7 +53,7 @@ function activate(context) {
 		);
         panel.webview.onDidReceiveMessage(
             async (message) => {
-                if (message.command === 'getContent') {
+                if (message.interaction === 1) {
                     try {
                         // Usa il primo editor aperto (puoi cambiare la logica se hai altri requisiti)
                         const editors = vscode.window.visibleTextEditors;
@@ -75,6 +75,9 @@ function activate(context) {
                         console.error('Error reading file content:', error);
                         panel.webview.postMessage({ command: 'error', message: 'Error reading file content' });
                     }
+                }
+                else{
+                    panel.webview.postMessage({ command: 'setContent', message: 'nothing to post this time' });
                 }
             },
             undefined,
@@ -180,7 +183,7 @@ function getQuestContent(context, panel) {
                 updateContent(currentIndex);
                 
                 document.getElementById('avanti').addEventListener('click', () => {
-                    vscode.postMessage({ command: 'getContent' });
+                    vscode.postMessage({interaction: quests[currentIndex].interaction });
                 });
                 
                 window.addEventListener('message', event => {
@@ -188,7 +191,6 @@ function getQuestContent(context, panel) {
                     if (currentIndex < quests.length - 1) {
                         if(currentIndex == 2){
                             if(message.isDirty){
-                                console.log("sei qui")
                                 errorDetected('Salva prima il file!')
                             }
                             else{
@@ -196,7 +198,6 @@ function getQuestContent(context, panel) {
                                 content = message.content
                                 console.log('contenuto: '+content);
                                 
-                                console.log(regexQuest2.test(content));
                                 if (regexQuest2.test(content)){
                                     currentIndex++;
                                     updateContent(currentIndex);
