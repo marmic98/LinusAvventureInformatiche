@@ -153,7 +153,7 @@ function getQuestContent(context, panel) {
     const mediaPath = context.asAbsolutePath('imgs');
     // Crea URI per le immagini
     const questsWithImgSrc = quests.map(quest => {
-        const imgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `${quest.pg}.jpg`)));
+        const imgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `${quest.pg}.png`)));
         return { ...quest, imgSrc: imgUri.toString() };
     });
     const bgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg.jpg`)));
