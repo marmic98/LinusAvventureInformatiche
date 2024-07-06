@@ -192,7 +192,7 @@ function getQuestContent(context, panel) {
                     if (currentIndex < quests.length - 1) {
                         if(currentIndex == 2){
                             if(message.isDirty){
-                                errorDetected('Salva prima il file!')
+                                errorDetected('Salva prima il file! Ti basta premere Ctrl + Sdcdcds')
                             }
                             else{
                                 const regexQuest2 = ${regexQuest2};
