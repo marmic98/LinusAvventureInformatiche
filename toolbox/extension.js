@@ -59,21 +59,21 @@ function activate(context) {
                         // Usa il primo editor aperto (puoi cambiare la logica se hai altri requisiti)
                         const editors = vscode.window.visibleTextEditors;
                         if (editors.length === 0) {
-                            console.log('No visible editors found'); // Debug logging
+                            //console.log('No visible editors found'); // Debug logging
                             panel.webview.postMessage({ command: 'error', message: 'No visible editors' });
                             vscode.window.showErrorMessage('No visible editors found. Please open a file and try again.');
                             return;
                         }
 
                         const activeEditor = editors[0]; // Usa il primo editor aperto
-                        console.log('Using editor:', activeEditor); // Debug logging 
+                        //console.log('Using editor:', activeEditor); // Debug logging 
                         const uri = activeEditor.document.uri;
-                        console.log('Editor URI:', uri); // Debug logging
+                        //console.log('Editor URI:', uri); // Debug logging
                         const content = await readFileContent(uri);
-                        console.log('File content read:', content); // Debug logging
+                        //console.log('File content read:', content); // Debug logging
                         panel.webview.postMessage({ command: 'setContent', content: content, isDirty: activeEditor.document.isDirty });
                     } catch (error) {
-                        console.error('Error reading file content:', error);
+                        //console.error('Error reading file content:', error);
                         panel.webview.postMessage({ command: 'error', message: 'Error reading file content' });
                     }
                 }
@@ -110,6 +110,16 @@ function getQuestContent(context, panel) {
     var quests = [
         {
             pg: "Ritchie",
+            line: "Ciao! Mi chiamo Ritchie. Ti do il mio benvenuto nella ridente CodeLand!",
+            interaction: 0,
+        },
+        {
+            pg: "Linus",
+            line: "Cia-a-a-o Ritchie! Come faccio a tornare a casa?",
+            interaction: 0,
+        },
+        {
+            pg: "Ritchie",
             line: "Quello che è successo a te è già successo ad un altro ragazzo. È stato lui a darmi questo nome. Il suo nome.\nPer tornare a casa lui suonò la campana del vecchio campanile nella Valle delle Variabili. Molte peripezie ti attenderanno!",
             interaction: 0,
         },
@@ -124,11 +134,18 @@ function getQuestContent(context, panel) {
             "\nA CodeLand ogni elemento è contenuto in una scatola detta variabile con un nome e un tipo. Il tipo serve a specificare che tipo di dato può contenere la varibile ossia il valore!" +
             "Indica, usando la legenda, per ogni categoria l’intero associato all’oggetto che intendi equipaggiare. Io dichiaro di fare uso della magia in questo modo: “int magia;”. Adesso prova tu! ",
             interaction: 1,
+            regexQuest: '^int\\s+arma;\\s*int\\s+difesa;\\s*int\\s+magia;$',
         },
         {
             pg: "Ritchie",
-            line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1. Adesso scegli la tua dalla legenda",
+            line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1. Adesso scegli il tuo equipaggiamento dalla legenda",
             interaction:1,
+            regexQuest: '^int\\s+arma\\s*=\\s*[1-5]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-5]\\s*;\\s*int\\s+magia\\s*=\\s*[1-5]\\s*;\\s*$',
+        },
+        {
+            pg: "Ritchie",
+            line: "Adesso siamo pronti per l’avventura…forse. Senza denaro non si è mai davvero pronti! Ecco a te cento denari",
+            interaction:0,
         }
     ];
 
@@ -140,8 +157,6 @@ function getQuestContent(context, panel) {
         return { ...quest, imgSrc: imgUri.toString() };
     });
     const bgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg.jpg`)));
-
-    const regexQuest2 = /^int\s+magia\s*=\s*[1-5]\s*;\s*int\s+arma\s*=\s*[1-5]\s*;\s*int\s+difesa\s*=\s*[1-5]\s*;\s*$/ms;
 
     return `<!DOCTYPE html>
     <html lang="en">
@@ -164,9 +179,7 @@ function getQuestContent(context, panel) {
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
                 pgImg.src = quests[index].imgSrc;
-                baloon.innerHTML = \`<p>\${quests[index].pg}: \${quests[index].line}</p>\`;
-                baloon.style.height = '100px';
-                
+                baloon.innerHTML = \`\${quests[index].pg}: \${quests[index].line}\`;
                 if(index%2 != 0){
                     pgImg.style.float = 'left'; 
                 }
@@ -190,16 +203,16 @@ function getQuestContent(context, panel) {
                 window.addEventListener('message', event => {
                     const message = event.data;
                     if (currentIndex < quests.length - 1) {
-                        if(currentIndex == 2){
+                        const regex = new RegExp(quests[currentIndex].regexQuest); 
+                        console.log(regex);
+                        if(regex){
                             if(message.isDirty){
-                                errorDetected('Salva prima il file! Ti basta premere Ctrl + Sdcdcds')
+                                errorDetected('Salva prima il file! Ti basta premere Ctrl + S')
                             }
                             else{
-                                const regexQuest2 = ${regexQuest2};
-                                content = message.content
-                                console.log('contenuto: '+content);
+                                content = message.content 
                                 
-                                if (regexQuest2.test(content)){
+                                if (regex.test(content)){
                                     currentIndex++;
                                     updateContent(currentIndex);
                                 }
@@ -246,6 +259,8 @@ function getQuestContent(context, panel) {
                 background-color: #EFCA08;
                 border-radius: 15px;
                 padding: 20px;
+                height: 100px;
+                margin-bottom: 50px;
             }
 
             #dashboard{
@@ -257,7 +272,6 @@ function getQuestContent(context, panel) {
                 height: 60px;
                 width: 100px;
             }
-
         </style>
 
     </head>
