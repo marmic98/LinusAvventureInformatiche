@@ -169,10 +169,10 @@ function getQuestContent(context, panel) {
             let currentIndex = 0;
             const quests = ${JSON.stringify(questsWithImgSrc)};
 
-            function errorDetected(message){
+            function errorDetected(message, index){
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
-                baloon.innerHTML = \`<p>\${message}</p>\`;
+                baloon.innerHTML = \`\${quests[index].pg}: \${quests[index].line}<br><br>\${message}\`;
             }
 
             function updateContent(index) {
@@ -180,12 +180,19 @@ function getQuestContent(context, panel) {
                 const pgImg = document.getElementById('pgImg');
                 pgImg.src = quests[index].imgSrc;
                 baloon.innerHTML = \`\${quests[index].pg}: \${quests[index].line}\`;
-                if(index%2 != 0){
-                    pgImg.style.float = 'left'; 
-                }
-                else {
-                    pgImg.style.float = 'right'; 
-                }
+                setTimeout(function () {
+                    console.log(index)
+                    if (index > 0 && quests[index].pg !== quests[index-1].pg){
+                        if(index%2 != 0){
+                            pgImg.style.float = 'left'; 
+                        }
+                        else if (index%2 === 0){
+                            pgImg.style.float = 'right'; 
+                        }
+                    }else if(index === 0) {
+                        pgImg.style.float = 'right';
+                    }
+                }, 100);
                 
                 
             }
@@ -204,20 +211,19 @@ function getQuestContent(context, panel) {
                     const message = event.data;
                     if (currentIndex < quests.length - 1) {
                         const regex = new RegExp(quests[currentIndex].regexQuest); 
-                        console.log(regex);
+                        
                         if(regex){
                             if(message.isDirty){
-                                errorDetected('Salva prima il file! Ti basta premere Ctrl + S')
+                                errorDetected('Salva prima il file! Ti basta premere Ctrl + S', currentIndex)
                             }
                             else{
                                 content = message.content 
-                                
                                 if (regex.test(content)){
                                     currentIndex++;
                                     updateContent(currentIndex);
                                 }
                                 else{
-                                    errorDetected("C'è un errore Linus. Riprova!");  
+                                    errorDetected("C'è un errore Linus. Riprova!", currentIndex);  
                                 }
                             }
                         }
@@ -254,6 +260,11 @@ function getQuestContent(context, panel) {
                 margin-bottom: 30px;
             }
 
+            #pgImg{
+                height: 600px;
+                width: 500px;
+            }
+
             #baloon{
                 color: #000000;
                 background-color: #EFCA08;
@@ -285,12 +296,6 @@ function getQuestContent(context, panel) {
             <input type="button" id="avanti" value="Avanti"/>
         </div>
     </body>
-
-    <script>
-        const pgImg = document.getElementById('pgImg');
-        pgImg.style.width = '500px';
-        pgImg.style.height = '400px';
-    </script>
     </html>`;
 }
 
