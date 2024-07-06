@@ -146,17 +146,166 @@ function getQuestContent(context, panel) {
             pg: "Ritchie",
             line: "Adesso siamo pronti per l’avventura…forse. Senza denaro non si è mai davvero pronti! Ecco a te cento denari",
             interaction:0,
-        }
+        },
+        {
+            pg: "Goblin",
+            line: "Salve stranieri. Dove avete intenzione di andare?!",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Dobbiamo raggiungere la Valle delle Variabili signor Goblin",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Linus caro sapevo che quei cento denari ti sarebbero ritornati utili ma non pensavo così presto! Ti conviene fare quello che dice.",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Verifica di avere almeno 70 denari in questo modo “if(denari >= 70) {” così da controllare se sei in possesso del denaro necessario e poi consegna il denaro sottraendolo a quello in tuo possesso in questo modo “portafogli = portafogli – 70;”. Non dimenticare di mettere una parentesi graffa chiusa per chiudere il blocco della condizione ( } )",
+            interaction:1,
+            regexQuest: '^if\\s*\\(\\s*portafogli\\s*>\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}$',
+        },
+        {
+            pg: "Goblin",
+            line: "Grazie cari viaggiatori per la vostra gentilissima offerta. Vi auguro in viaggio tranquillo e privo di pericoli ihihih",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Si come no ciao ciao! Linus i goblin da queste parti non agiscono mai da soli.",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Non sei per nulla rassicurante Ritchie. Sai cos’altro non è rassicurante?! L’idea di dover fare tutta questa strada a piedi",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Non sei per nulla rassicurante Ritchie. Sai cos’altro non è rassicurante?! L’idea di dover fare tutta questa strada a piedi",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "A questo c’è rimedio! Sapevi di avere un fedele destriero in questo mondo? Tutti i cittadini ne hanno uno. L’unica decisione buona presa dal governatore di queste terre nonché quella che lo ha fatto diventare governatore. Ma torniamo a noi: Chiama il tuo destriero usando la funzione “chiamaDestriero();”. Le funzioni sono molto utili perché al suo interno contengono del codice che compie un’azione. All’utilizzatore di essa non interessa come sia fatta la funzione ma sapere solo quel è il suo compito e invocarla al momento giusto. Prova a chiamare il cavallo adesso",
+            interaction:1,
+            regexQuest: '^chiamaDestriero\\s*\\(\\s*\)\\s*;$',
+        },
+        {
+            pg: "Cavallo",
+            line: "(nitrisce)",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Uooo bello!",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Visto?! È stato facile come invocare una funzione! Sapevi che le funzioni possono richiedere dei dati in ingresso per poter funzionare? Basta inserirli tra le parentesi che seguono il nome della funzione. Inoltre, le funzioni possono restituire dei dati in uscita che potranno essere usati per valorizzare delle variabili!",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Uooo bello!",
+            interaction:0,
+        },
+        {
+            pg: "Capo Goblin",
+            line: "Salve nanerottoli! Sarò breve con voi: Pagate il “pedaggio” di 70 denari come avete fatto con il mio servo o vi spazzo via",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Ed ora che faccio Ritchie?! Non mi pare di avere denaro a sufficienza!",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Verifica di avere almeno 70 denari e se la condizione è vera sottrai il denaro al tuo portafogli. Altrimenti, se la condizione di possedere 70 denari non fosse verificata, pianifica un attacco come azione alternativa. Per fare questo, dopo il blocco di verifica di possesso del denaro, puoi pianificare un attacco usando la funzione colpisci() in questo modo:  else{ \n colpisci(); \n}",
+            interaction:1,
+            regexQuest: '^if\\s*\\(\\s*portafogli\\s*>\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}\\s*else\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*\\}$',
+        },
+        {
+            pg: "Linus",
+            line: "Ecco il \"pedaggio\" che ti meriti!",
+            interaction:0,
+        },
+        {
+            pg: "Capo Goblin",
+            line: "Sigh! Sob!",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Sei stato fortissimo Linus!",
+            interaction: 0,
+        },
+        {
+            pg: "Linus",
+            line: "Questo portone è enorme! Non credo sia possibile aprirlo senza chiave",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Invece un trucco c’è! Vedi quel piccolo punto dorato vicino alla serratura? Se colpissi dieci volte quel punto esatto il portone si aprirà. Per farlo dovrai effettuare l’iterazione di un colpo finché non ne avrai scagliati dieci. Puoi farlo con il costrutto while(condizione){ colpisci(); }. Prova tu a scrivere la condizione utilizzando una variabile contatore_colpi che dovrai precedentemente dichiarare come variabile int inizializzata con il valore 0. Non dimenticare di incrementare contatore_colpi subito dopo aver colpito!",
+            interaction:1,
+            regexQuest: '^int\\s+contatore_colpi\\s*=\\s*0\\s*;\\s*while\\s*\\(\\s*contatore_colpi\\s*<\\s*10\\s*\\)\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*contatore_colpi\\s*=\\s*contatore_colpi\\s*\\+\\s*1\\s*;\\s*\\}$',
+        },
+        {
+            pg: "Linus",
+            line: "Evviva ce l’ho fatta. Inizio a credere molto di più nelle mie capacità Ritchie!",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Credere nei propri sogni risveglia la forza che abbiamo dentro! Non smettere mai di sognare!",
+            interaction: 0,
+        },
+        //parte della valle degli UNO
+        {
+            pg: "Ritchie",
+            line: "Mio caro Linus eccoci al campanile! Colui che ti ha preceduto fece fare alla campana sette rintocchi usando le due corde che cadono dal cielo. Non ricordo però in che modo andavano usate le corde!",
+            interaction: 0,
+        },
+        {
+            pg: "Linus",
+            line: "Hai visto Ritchie? Le corde delle campane si illuminano come raggi di sole quando le campane stanno per rintoccare!",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Adesso ricordo come fare! Per farlo però dovrai usare tutto ciò che hai imparato in questo viaggio! Dovrai contare sette rintocchi ma ogni rintocco dovrà essere fatto tirando la corda che si illuminerà! Ciò ti richiede di mescolare l’interazione e if/else. Prova a scrivere un’iterazione che durerà fino a che i rintocchi non saranno sette. Per ogni iterazione dovrai verificare se la corda che si illumina è la sinistra mediante la funzione cordaTirataSinistra(); Questa funzione restituisce 1 se si altrimenti restituisce 0. A CodeLand 1 significa condizione vera mentre 0 significa condizione falsa! Altrimenti ad illuminarsi sarà la corda destra. Quando avrai tirato la campana con la funzione tiraCordaSinistra(); o tiraCordaDestra(); non dimenticarti di incrementare il contatore_rintocchi che ti servirà nel while per contare i sette rintocchi!",
+            interaction:1,
+            regexQuest: '^while\\s*\\(\\s*contatore_rintocchi\\s*<\\s*7\\s*\\)\\s*\\{\\s*if\\s*\\(\\s*cordaTirataSinistra\\s*\\(\\s*\\)\\s*\\)\\s*\\{\\s*tiraCordaSinistra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*else\\s*\\{\\s*tiraCordaDestra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*\\}$',
+        },
+        {
+            pg: "Ritchie",
+            line: "Per tornare a casa non ti resta che farti trasportare dal raggio di luce! La nostra avventura finisce qui! Prima che tu vada, sappi che quest’avventura mi ha fatto conoscere un amico speciale. Non mi dimenticherò mai di te!",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Oh Ritchie! Mi mancherà tantissimo galoppare con te per CodeLand. Adesso però il mio mondo mi aspetta. A presto!",
+            interaction:0,
+        },
+        {
+            pg: "Linus",
+            line: "Ciao Linus. A presto!",
+            interaction:0,
+        },
     ];
 
-    // Ottieni il percorso assoluto della cartella imgs
-    const mediaPath = context.asAbsolutePath('imgs');
     // Crea URI per le immagini
     const questsWithImgSrc = quests.map(quest => {
         const imgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `${quest.pg}.png`)));
         return { ...quest, imgSrc: imgUri.toString() };
     });
-    const bgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg.jpg`)));
+    const bgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg1.png`)));
 
     return `<!DOCTYPE html>
     <html lang="en">
@@ -172,16 +321,15 @@ function getQuestContent(context, panel) {
             function errorDetected(message, index){
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
-                baloon.innerHTML = \`\${quests[index].pg}: \${quests[index].line}<br><br>\${message}\`;
+                baloon.innerHTML = \`\${quests[index].line}<br><br>\${message}\`;
             }
 
             function updateContent(index) {
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
-                pgImg.src = quests[index].imgSrc;
-                baloon.innerHTML = \`\${quests[index].pg}: \${quests[index].line}\`;
+                
+                baloon.innerHTML = \`\${quests[index].line}\`;
                 setTimeout(function () {
-                    console.log(index)
                     if (index > 0 && quests[index].pg !== quests[index-1].pg){
                         if(index%2 != 0){
                             pgImg.style.float = 'left'; 
@@ -192,8 +340,8 @@ function getQuestContent(context, panel) {
                     }else if(index === 0) {
                         pgImg.style.float = 'right';
                     }
-                }, 100);
-                
+                }, 1);
+                pgImg.src = quests[index].imgSrc;
                 
             }
 
@@ -218,6 +366,8 @@ function getQuestContent(context, panel) {
                             }
                             else{
                                 content = message.content 
+                            console.log(regex)
+                            console.log(regex.test(content))
                                 if (regex.test(content)){
                                     currentIndex++;
                                     updateContent(currentIndex);
@@ -248,12 +398,12 @@ function getQuestContent(context, panel) {
 
             body{
                 margin: 50px;
-                background-repeat: no-repeat;
-                background-image: url('${bgUri}');
-                background-size: cover;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                background-image: url('${bgUri}');
+                background-size: contain;
+                background-repeat: no-repeat;
             }
 
             #pgCont{
