@@ -134,18 +134,22 @@ function getQuestContent(context, panel) {
             "\nA CodeLand ogni elemento è contenuto in una scatola detta variabile con un nome e un tipo. Il tipo serve a specificare che tipo di dato può contenere la varibile ossia il valore!" +
             "Indica, usando la legenda, per ogni categoria l’intero associato all’oggetto che intendi equipaggiare. Io dichiaro di fare uso della magia in questo modo: “int magia;”. Adesso prova tu! ",
             interaction: 1,
-            regexQuest: '^int\\s+arma;\\s*int\\s+difesa;\\s*int\\s+magia;$',
+            regexQuest: '[\\s\\S]*int\\s+arma;\\s*int\\s+difesa;\\s*int\\s+magia;[\\s\\S]*$',
         },
         {
             pg: "Ritchie",
             line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1. Adesso scegli il tuo equipaggiamento dalla legenda",
             interaction:1,
-            regexQuest: '^int\\s+arma\\s*=\\s*[1-5]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-5]\\s*;\\s*int\\s+magia\\s*=\\s*[1-5]\\s*;\\s*$',
+            regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-5]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-5]\\s*;\\s*int\\s+magia\\s*=\\s*[1-5]\\s*;[\\s\\S]*$',
         },
         {
             pg: "Ritchie",
             line: "Adesso siamo pronti per l’avventura…forse. Senza denaro non si è mai davvero pronti! Ecco a te cento denari",
             interaction:0,
+        },
+        //GOBLIN 7
+        {
+            interaction:2,
         },
         {
             pg: "Goblin",
@@ -158,6 +162,11 @@ function getQuestContent(context, panel) {
             interaction:0,
         },
         {
+            pg: "Goblin",
+            line: "Ahah bene! Immagino non sappiate che per passare di qui ad una sola condizione: mi dovete un pedaggio che ammonta alla insulsa cifra di 70 denari",
+            interaction:0,
+        },
+        {
             pg: "Ritchie",
             line: "Linus caro sapevo che quei cento denari ti sarebbero ritornati utili ma non pensavo così presto! Ti conviene fare quello che dice.",
             interaction:0,
@@ -166,7 +175,7 @@ function getQuestContent(context, panel) {
             pg: "Ritchie",
             line: "Verifica di avere almeno 70 denari in questo modo “if(denari >= 70) {” così da controllare se sei in possesso del denaro necessario e poi consegna il denaro sottraendolo a quello in tuo possesso in questo modo “portafogli = portafogli – 70;”. Non dimenticare di mettere una parentesi graffa chiusa per chiudere il blocco della condizione ( } )",
             interaction:1,
-            regexQuest: '^if\\s*\\(\\s*portafogli\\s*>\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}$',
+            regexQuest: '[\\s\\S]*if\\s*\\(\\s*portafogli\\s*>=\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}[\\s\\S]*$',
         },
         {
             pg: "Goblin",
@@ -184,15 +193,10 @@ function getQuestContent(context, panel) {
             interaction:0,
         },
         {
-            pg: "Linus",
-            line: "Non sei per nulla rassicurante Ritchie. Sai cos’altro non è rassicurante?! L’idea di dover fare tutta questa strada a piedi",
-            interaction:0,
-        },
-        {
             pg: "Ritchie",
             line: "A questo c’è rimedio! Sapevi di avere un fedele destriero in questo mondo? Tutti i cittadini ne hanno uno. L’unica decisione buona presa dal governatore di queste terre nonché quella che lo ha fatto diventare governatore. Ma torniamo a noi: Chiama il tuo destriero usando la funzione “chiamaDestriero();”. Le funzioni sono molto utili perché al suo interno contengono del codice che compie un’azione. All’utilizzatore di essa non interessa come sia fatta la funzione ma sapere solo quel è il suo compito e invocarla al momento giusto. Prova a chiamare il cavallo adesso",
             interaction:1,
-            regexQuest: '^chiamaDestriero\\s*\\(\\s*\)\\s*;$',
+            regexQuest: '[\\s\\S]*chiamaDestriero\\s*\\(\\s*\\);[\\s\\S]*$',
         },
         {
             pg: "Cavallo",
@@ -209,10 +213,9 @@ function getQuestContent(context, panel) {
             line: "Visto?! È stato facile come invocare una funzione! Sapevi che le funzioni possono richiedere dei dati in ingresso per poter funzionare? Basta inserirli tra le parentesi che seguono il nome della funzione. Inoltre, le funzioni possono restituire dei dati in uscita che potranno essere usati per valorizzare delle variabili!",
             interaction:0,
         },
+        //CAPO GOBLIN 20
         {
-            pg: "Linus",
-            line: "Uooo bello!",
-            interaction:0,
+            interaction:2,
         },
         {
             pg: "Capo Goblin",
@@ -228,7 +231,8 @@ function getQuestContent(context, panel) {
             pg: "Ritchie",
             line: "Verifica di avere almeno 70 denari e se la condizione è vera sottrai il denaro al tuo portafogli. Altrimenti, se la condizione di possedere 70 denari non fosse verificata, pianifica un attacco come azione alternativa. Per fare questo, dopo il blocco di verifica di possesso del denaro, puoi pianificare un attacco usando la funzione colpisci() in questo modo:  else{ \n colpisci(); \n}",
             interaction:1,
-            regexQuest: '^if\\s*\\(\\s*portafogli\\s*>\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}\\s*else\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*\\}$',
+            regexQuest: '[\\s\\S]*if\\s*\\(\\s*portafogli\\s*>=\\s*70\\s*\\)\\s*\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}[\\s\\S]*$',
+
         },
         {
             pg: "Linus",
@@ -245,6 +249,10 @@ function getQuestContent(context, panel) {
             line: "Sei stato fortissimo Linus!",
             interaction: 0,
         },
+        //PORTONE 27
+        {
+            interaction: 2
+        },
         {
             pg: "Linus",
             line: "Questo portone è enorme! Non credo sia possibile aprirlo senza chiave",
@@ -254,7 +262,7 @@ function getQuestContent(context, panel) {
             pg: "Ritchie",
             line: "Invece un trucco c’è! Vedi quel piccolo punto dorato vicino alla serratura? Se colpissi dieci volte quel punto esatto il portone si aprirà. Per farlo dovrai effettuare l’iterazione di un colpo finché non ne avrai scagliati dieci. Puoi farlo con il costrutto while(condizione){ colpisci(); }. Prova tu a scrivere la condizione utilizzando una variabile contatore_colpi che dovrai precedentemente dichiarare come variabile int inizializzata con il valore 0. Non dimenticare di incrementare contatore_colpi subito dopo aver colpito!",
             interaction:1,
-            regexQuest: '^int\\s+contatore_colpi\\s*=\\s*0\\s*;\\s*while\\s*\\(\\s*contatore_colpi\\s*<\\s*10\\s*\\)\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*contatore_colpi\\s*=\\s*contatore_colpi\\s*\\+\\s*1\\s*;\\s*\\}$',
+            regexQuest: '[\\s\\S]*int\\s+contatore_colpi\\s*=\\s*0\\s*;\\s*while\\s*\\(\\s*contatore_colpi\\s*<\\s*10\\s*\\)\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*contatore_colpi\\s*=\\s*contatore_colpi\\s*\\+\\s*1\\s*;\\s*\\}[\\s\\S]*$',
         },
         {
             pg: "Linus",
@@ -267,6 +275,10 @@ function getQuestContent(context, panel) {
             interaction: 0,
         },
         //parte della valle degli UNO
+        //32 Campanile
+        {
+            interaction: 2
+        },
         {
             pg: "Ritchie",
             line: "Mio caro Linus eccoci al campanile! Colui che ti ha preceduto fece fare alla campana sette rintocchi usando le due corde che cadono dal cielo. Non ricordo però in che modo andavano usate le corde!",
@@ -281,7 +293,7 @@ function getQuestContent(context, panel) {
             pg: "Ritchie",
             line: "Adesso ricordo come fare! Per farlo però dovrai usare tutto ciò che hai imparato in questo viaggio! Dovrai contare sette rintocchi ma ogni rintocco dovrà essere fatto tirando la corda che si illuminerà! Ciò ti richiede di mescolare l’interazione e if/else. Prova a scrivere un’iterazione che durerà fino a che i rintocchi non saranno sette. Per ogni iterazione dovrai verificare se la corda che si illumina è la sinistra mediante la funzione cordaTirataSinistra(); Questa funzione restituisce 1 se si altrimenti restituisce 0. A CodeLand 1 significa condizione vera mentre 0 significa condizione falsa! Altrimenti ad illuminarsi sarà la corda destra. Quando avrai tirato la campana con la funzione tiraCordaSinistra(); o tiraCordaDestra(); non dimenticarti di incrementare il contatore_rintocchi che ti servirà nel while per contare i sette rintocchi!",
             interaction:1,
-            regexQuest: '^while\\s*\\(\\s*contatore_rintocchi\\s*<\\s*7\\s*\\)\\s*\\{\\s*if\\s*\\(\\s*cordaTirataSinistra\\s*\\(\\s*\\)\\s*\\)\\s*\\{\\s*tiraCordaSinistra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*else\\s*\\{\\s*tiraCordaDestra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*\\}$',
+            regexQuest: '[\\s\\S]*while\\s*\\(\\s*contatore_rintocchi\\s*<\\s*7\\s*\\)\\s*\\{\\s*if\\s*\\(\\s*cordaTirataSinistra\\s*\\(\\s*\\)\\s*\\)\\s*\\{\\s*tiraCordaSinistra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*else\\s*\\{\\s*tiraCordaDestra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*\\}[\\s\\S]*$',
         },
         {
             pg: "Ritchie",
@@ -298,14 +310,20 @@ function getQuestContent(context, panel) {
             line: "Ciao Linus. A presto!",
             interaction:0,
         },
-    ];
+    ];  
 
     // Crea URI per le immagini
     const questsWithImgSrc = quests.map(quest => {
         const imgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `${quest.pg}.png`)));
         return { ...quest, imgSrc: imgUri.toString() };
     });
-    const bgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg1.png`)));
+    const bgUri1 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg1.png`))).toString();
+    const bgUri2 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg2.png`))).toString();
+    const bgUri3 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg3.png`))).toString();
+    const bgUri4 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg4.png`))).toString();
+    const bgUri5 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg5.png`))).toString();
+
+    const ostUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `ost.wav`))).toString();
 
     return `<!DOCTYPE html>
     <html lang="en">
@@ -318,6 +336,21 @@ function getQuestContent(context, panel) {
             let currentIndex = 0;
             const quests = ${JSON.stringify(questsWithImgSrc)};
 
+            document.addEventListener('DOMContentLoaded', function() {
+    const audioElement = document.createElement('audio');
+    audioElement.setAttribute('autoplay', true);
+    audioElement.setAttribute('loop', true);
+
+    const sourceElement = document.createElement('source');
+    sourceElement.setAttribute('src', '${ostUri}');
+    sourceElement.setAttribute('type', 'audio/wav');
+
+    audioElement.appendChild(sourceElement);
+    document.body.appendChild(audioElement);
+
+    
+});
+
             function errorDetected(message, index){
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
@@ -327,21 +360,68 @@ function getQuestContent(context, panel) {
             function updateContent(index) {
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
-                
+                let bg = 0;
                 baloon.innerHTML = \`\${quests[index].line}\`;
                 setTimeout(function () {
                     if (index > 0 && quests[index].pg !== quests[index-1].pg){
+                        baloon.style.opacity = 1;
+                        pgImg.style.opacity = 1;
+                        
                         if(index%2 != 0){
                             pgImg.style.float = 'left'; 
+                            baloon.classList.add('slide-in-left');
+                            
+                            baloon.addEventListener('animationend', () => {
+                                baloon.classList.remove('slide-in-left');
+                            });
                         }
                         else if (index%2 === 0){
-                            pgImg.style.float = 'right'; 
+                            pgImg.style.float = 'right';
+                            baloon.classList.add('slide-in-right');
+                            baloon.addEventListener('animationend', () => {
+                                baloon.classList.remove('slide-in-right');
+                            });
                         }
+                        pgImg.src = quests[index].imgSrc;
                     }else if(index === 0) {
+                        document.body.style.backgroundImage = 'url(${bgUri1})';
                         pgImg.style.float = 'right';
+                        baloon.classList.add('slide-in-right');
+                        baloon.addEventListener('animationend', () => {
+                                baloon.classList.remove('slide-in-right');
+                            });
+                        pgImg.src = quests[index].imgSrc;
                     }
-                }, 1);
-                pgImg.src = quests[index].imgSrc;
+                    if(index == 7){
+                        baloon.classList.remove('slide-in-right');
+                        baloon.classList.remove('slide-in-left');
+                        document.body.style.backgroundImage = 'url(${bgUri2})';
+                        baloon.style.opacity = 0;
+                        pgImg.style.opacity = 0;
+                    }
+                    if(index == 20){
+                        baloon.classList.remove('slide-in-right');
+                        baloon.classList.remove('slide-in-left');
+                        document.body.style.backgroundImage = 'url(${bgUri3})';
+                        baloon.style.opacity = 0;
+                        pgImg.style.opacity = 0;
+                    }
+                    if(index == 27){
+                        baloon.classList.remove('slide-in-right');
+                        baloon.classList.remove('slide-in-left');
+                        document.body.style.backgroundImage = 'url(${bgUri4})';
+                        baloon.style.opacity = 0;
+                        pgImg.style.opacity = 0;
+                    }
+                    if(index == 32){
+                        baloon.classList.remove('slide-in-right');
+                        baloon.classList.remove('slide-in-left');
+                        document.body.style.backgroundImage = 'url(${bgUri5})';
+                        baloon.style.opacity = 0;
+                        pgImg.style.opacity = 0;
+                    }
+                }, 0);
+                
                 
             }
 
@@ -366,8 +446,6 @@ function getQuestContent(context, panel) {
                             }
                             else{
                                 content = message.content 
-                            console.log(regex)
-                            console.log(regex.test(content))
                                 if (regex.test(content)){
                                     currentIndex++;
                                     updateContent(currentIndex);
@@ -397,11 +475,9 @@ function getQuestContent(context, panel) {
         <style>
 
             body{
-                margin: 50px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                background-image: url('${bgUri}');
                 background-size: contain;
                 background-repeat: no-repeat;
             }
@@ -412,16 +488,44 @@ function getQuestContent(context, panel) {
 
             #pgImg{
                 height: 600px;
-                width: 500px;
+                width: 600px;
             }
-
+            
+            @keyframes slide-in-left {
+                0% {
+                    transform: translateX(-100%);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slide-in-right {
+            0% {
+                transform: translateX(200%);
+                opacity: 0;
+                }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+                }
+            }
             #baloon{
                 color: #000000;
                 background-color: #EFCA08;
                 border-radius: 15px;
                 padding: 20px;
-                height: 100px;
                 margin-bottom: 50px;
+                height: 100px; 
+            }
+
+            .slide-in-left {
+                animation: slide-in-left 1s ease-out;
+            }
+
+            .slide-in-right {
+                animation: slide-in-right 1s ease-out;
             }
 
             #dashboard{
