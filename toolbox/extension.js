@@ -325,6 +325,9 @@ function getQuestContent(context, panel) {
 
     const ostUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `ost.wav`))).toString();
 
+    const audio = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `audio.png`))).toString();
+    const no_audio = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `no-audio.png`))).toString();
+    
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -337,19 +340,34 @@ function getQuestContent(context, panel) {
             const quests = ${JSON.stringify(questsWithImgSrc)};
 
             document.addEventListener('DOMContentLoaded', function() {
-    const audioElement = document.createElement('audio');
-    audioElement.setAttribute('autoplay', true);
-    audioElement.setAttribute('loop', true);
+                const audio = document.createElement('audio');
+                audio.setAttribute('autoplay', true);
+                audio.setAttribute('loop', true);
 
-    const sourceElement = document.createElement('source');
-    sourceElement.setAttribute('src', '${ostUri}');
-    sourceElement.setAttribute('type', 'audio/wav');
+                const sourceElement = document.createElement('source');
+                sourceElement.setAttribute('src', '${ostUri}');
+                sourceElement.setAttribute('type', 'audio/wav');
 
-    audioElement.appendChild(sourceElement);
-    document.body.appendChild(audioElement);
+                audio.appendChild(sourceElement);
+                document.body.appendChild(audio);
 
-    
-});
+                const button = document.getElementById('play-button');
+                button.style.backgroundImage = 'url("${no_audio}")'
+
+                button.addEventListener('click', function() {
+                    if(audio.paused){
+                        audio.play();
+                        button.style.backgroundImage = 'url("${audio}")'
+                    }
+                    else{
+                        audio.pause();
+                        button.style.backgroundImage = 'url("${no_audio}")'
+                    }
+                    
+                })
+            });
+
+
 
             function errorDetected(message, index){
                 const baloon = document.getElementById('baloon');
@@ -537,6 +555,13 @@ function getQuestContent(context, panel) {
                 height: 60px;
                 width: 100px;
             }
+
+            #play-button {
+                width: 50px;
+                height: 50px;
+                background-color: transparent;
+            }
+
         </style>
 
     </head>
@@ -549,6 +574,9 @@ function getQuestContent(context, panel) {
             <input type="button" id="indietro" value="Indietro"/>
             <input type="button" id="avanti" value="Avanti"/>
         </div>
+        <button id="play-button">
+            Play
+        </button>
     </body>
     </html>`;
 }
