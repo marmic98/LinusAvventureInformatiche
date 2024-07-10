@@ -1,8 +1,9 @@
 {
   "name": "toolbox",
-  "displayName": "toolbox",
-  "description": "nice vs code ext",
-  "version": "0.0.1",
+  "displayName": "Linus e le avventuare informatiche",
+  "description": "VS Code extension that learn C programming language through storytelling",
+  "version": "0.0.9",
+  "publisher": "MicheleMartino",
   "engines": {
     "vscode": "^1.91.0"
   },
@@ -32,6 +33,5 @@
     "@vscode/test-electron": "^2.4.0"
   },
   "files": [
-    "imgs"
   ]
 }
