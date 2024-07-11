@@ -3,6 +3,7 @@
 const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs');
+const { execSync } = require('child_process');
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -34,9 +35,7 @@ function activate(context) {
         // Crea il file .c se non esiste
         if (!fs.existsSync(filePath)) {
             fs.writeFileSync(filePath, '');
-            console.log('file creato')
         }
-        console.log('file created because not loaded before')
         let document = await vscode.workspace.openTextDocument(vscode.Uri.file(filePath));
         await vscode.window.showTextDocument(document, vscode.ViewColumn.Two);
 
@@ -52,6 +51,37 @@ function activate(context) {
                 localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media'))]
             }
 		);
+
+        const configFilePath = path.join(workspacePath, '.config.json');
+        const settingsFilePath = path.join(workspacePath, '.vscode/settings.json');
+        const vscodeFolderPath = path.join(workspacePath, '.vscode');
+        let uniqueId = 0;
+        try {
+            // Crea la cartella .vscode se non esiste
+            if (!fs.existsSync(vscodeFolderPath)) {
+                fs.mkdirSync(vscodeFolderPath);
+                console.log('.vscode directory created');
+            }
+    
+            // Crea o aggiorna il file settings.json per escludere .config.json e se stesso dal File Explorer
+            createOrUpdateSettingsFile(settingsFilePath);
+    
+            // Crea il file di configurazione con un ID unico se non esiste
+            if (!fs.existsSync(configFilePath)) {
+                uniqueId = generateUniqueId();
+                fs.writeFileSync(configFilePath, JSON.stringify({ uniqueId }, null, 2));
+                console.log(`Config file created with unique ID: ${uniqueId}`);
+            } else {
+                // Leggi l'ID unico dal file di configurazione esistente
+                const configContent = fs.readFileSync(configFilePath, 'utf-8');
+                const config = JSON.parse(configContent);
+                console.log(`Existing Unique ID: ${config.uniqueId}`);
+                uniqueId = config.uniqueId;
+            }
+        } catch (error) {
+            console.error(`Failed to manage the config file: ${error.message}`);
+        }
+
         panel.webview.onDidReceiveMessage(
             async (message) => {
                 if (message.interaction === 1) {
@@ -59,18 +89,14 @@ function activate(context) {
                         // Usa il primo editor aperto (puoi cambiare la logica se hai altri requisiti)
                         const editors = vscode.window.visibleTextEditors;
                         if (editors.length === 0) {
-                            //console.log('No visible editors found'); // Debug logging
                             panel.webview.postMessage({ command: 'error', message: 'No visible editors' });
                             vscode.window.showErrorMessage('No visible editors found. Please open a file and try again.');
                             return;
                         }
 
-                        const activeEditor = editors[0]; // Usa il primo editor aperto
-                        //console.log('Using editor:', activeEditor); // Debug logging 
+                        const activeEditor = editors[0]; // Usa il primo editor aperto 
                         const uri = activeEditor.document.uri;
-                        //console.log('Editor URI:', uri); // Debug logging
                         const content = await readFileContent(uri);
-                        //console.log('File content read:', content); // Debug logging
                         panel.webview.postMessage({ command: 'setContent', content: content, isDirty: activeEditor.document.isDirty });
                     } catch (error) {
                         //console.error('Error reading file content:', error);
@@ -84,10 +110,59 @@ function activate(context) {
             undefined,
             context.subscriptions
         );
-		panel.webview.html = getQuestContent(context, panel);
+		panel.webview.html = getQuestContent(context, panel, uniqueId);
         
 	});
 	context.subscriptions.push(disposable);
+}
+
+// Aggiungi il file a .vscode/settings.json per escluderlo dal File Explorer
+function createOrUpdateSettingsFile(settingsFilePath) {
+    let settings = {};
+
+    // Se il file settings.json esiste, leggilo
+    if (fs.existsSync(settingsFilePath)) {
+        settings = JSON.parse(fs.readFileSync(settingsFilePath, 'utf-8'));
+    }
+
+    // Se non esiste, assicurati che abbia un oggetto vuoto inizialmente
+    if (!settings.files) {
+        settings.files = {};
+    }
+
+    if (!settings.files.exclude) {
+        settings.files.exclude = {};
+    }
+
+    // Aggiungi la configurazione per escludere .config.json e .vscode/settings.json dal File Explorer
+    settings.files.exclude[`**/.config.json`] = true;
+    settings.files.exclude[`**/.vscode/settings.json`] = true;
+
+    // Scrivi o aggiorna il file settings.json
+    fs.writeFileSync(settingsFilePath, JSON.stringify(settings, null, 2));
+    console.log(`Updated .vscode/settings.json to exclude .config.json and itself`);
+
+    setReadOnly(settingsFilePath);
+}
+
+function setReadOnly(filePath) {
+    try {
+        if (process.platform === 'win32') {
+            // Windows: Usa il comando icacls per impostare solo lettura
+            execSync(`icacls "${filePath}" /grant:r everyone:(R)`);
+        } else {
+            // macOS e Linux: Usa il comando chmod per impostare solo lettura
+            fs.chmodSync(filePath, 0o444);
+        }
+        console.log(`File ${filePath} is set to read-only`);
+    } catch (error) {
+        console.error(`Failed to set read-only permission: ${error.message}`);
+    }
+}
+
+function generateUniqueId() {
+    // Genera un ID unico usando Date e Math.random
+    return `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
 }
 
 async function readFileContent(uri) {
@@ -102,11 +177,8 @@ async function readFileContent(uri) {
     });
 }
 
-function fileSaved(){
 
-}
-
-function getQuestContent(context, panel) {
+function getQuestContent(context, panel, id) {
     var quests = [
         {
             pg: "Ritchie",
@@ -317,6 +389,7 @@ function getQuestContent(context, panel) {
         const imgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `${quest.pg}.png`)));
         return { ...quest, imgSrc: imgUri.toString() };
     });
+
     const bgUri1 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg1.png`))).toString();
     const bgUri2 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg2.png`))).toString();
     const bgUri3 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg3.png`))).toString();
@@ -337,6 +410,7 @@ function getQuestContent(context, panel) {
         <script>
             const vscode = acquireVsCodeApi();
             let currentIndex = 0;
+            let errorCounter = 0;
             const quests = ${JSON.stringify(questsWithImgSrc)};
 
             document.addEventListener('DOMContentLoaded', function() {
@@ -378,7 +452,6 @@ function getQuestContent(context, panel) {
             function updateContent(index) {
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
-                let bg = 0;
                 baloon.innerHTML = \`\${quests[index].line}\`;
                 setTimeout(function () {
                     if (index > 0 && quests[index].pg !== quests[index-1].pg){
@@ -450,7 +523,33 @@ function getQuestContent(context, panel) {
                 updateContent(currentIndex);
                 
                 document.getElementById('avanti').addEventListener('click', () => {
-                    vscode.postMessage({interaction: quests[currentIndex].interaction });
+                    if(document.getElementById('avanti').value === 'Fine'){
+                        document.body.style.backgroundImage = '';
+                        document.getElementById('pgCont').remove()
+                        document.getElementById('dashboard').remove()
+                        let classificaTitle = document.createElement('p');
+                        classificaTitle.id = 'classificaTitle';
+                        classificaTitle.textContent = 'Classifica!'
+                        document.body.appendChild(classificaTitle);
+
+                        fetch('http://localhost:3000/api/punteggio')
+                            .then(response => {
+                                console.log('Response status:', response.status);  // Controlla lo stato della risposta
+                                console.log('Response headers:', response.headers); 
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log(data);  // Elenco i dati ottenuti
+                            })
+                            .catch(error => {
+                                console.error('errore di fetch:', error);
+                        });
+                    }    
+                    else
+                        vscode.postMessage({interaction: quests[currentIndex].interaction });
                 });
                 
                 window.addEventListener('message', event => {
@@ -469,6 +568,7 @@ function getQuestContent(context, panel) {
                                     updateContent(currentIndex);
                                 }
                                 else{
+                                    errorCounter++;
                                     errorDetected("C'è un errore Linus. Riprova!", currentIndex);  
                                 }
                             }
@@ -476,17 +576,21 @@ function getQuestContent(context, panel) {
                         else{
                             currentIndex++;
                             updateContent(currentIndex);
-                        }
-                        
+                        } 
+                        console.log(document.getElementById('avanti').textContent);
+                    }
+                    else{
+                        document.getElementById('avanti').value = 'Fine';    
+                        console.log(document.getElementById('avanti').textContent.toString());
                     }
                 });
 
-                document.getElementById('indietro').addEventListener('click', function() {
+                /*document.getElementById('indietro').addEventListener('click', function() {
                     if (currentIndex > 0) {
                         currentIndex--;
                         updateContent(currentIndex);
                     }
-                });
+                });*/
             });
         </script>
 
@@ -571,12 +675,10 @@ function getQuestContent(context, panel) {
             <img id="pgImg" alt="Personaggio"/>
         </div>
         <div id = "dashboard">
-            <input type="button" id="indietro" value="Indietro"/>
+            <button id="play-button"></button>
             <input type="button" id="avanti" value="Avanti"/>
         </div>
-        <button id="play-button">
-            Play
-        </button>
+        
     </body>
     </html>`;
 }
