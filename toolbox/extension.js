@@ -548,7 +548,6 @@ function getQuestContent(context, panel, id) {
                                 },
                                 body: JSON.stringify(data)
                             });
-
                             // Controlla se la richiesta ha avuto successo
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
@@ -637,10 +636,9 @@ function getQuestContent(context, panel, id) {
                 
                 headerUser.textContent = 'User'
                 headerPunteggio.textContent = 'Punteggio'
-
-                headerRow.appendChild(headerPunteggio)
+          
                 headerRow.appendChild(headerUser)
-                
+                headerRow.appendChild(headerPunteggio)                
 
                 thead.appendChild(headerRow);
                 table.appendChild(thead);
