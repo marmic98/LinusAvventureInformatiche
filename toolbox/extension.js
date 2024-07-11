@@ -534,6 +534,35 @@ function getQuestContent(context, panel, id) {
 
                         let table = document.createElement('table')
 
+                        const data = {
+                            id: ${id},
+                            punteggio: errorCounter
+                        } 
+
+                        try {
+                            // Esegue la richiesta POST
+                            const response = fetch('http://localhost:3000/api/punteggio/save', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            });
+
+                            // Controlla se la richiesta ha avuto successo
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+
+                            // Recupera la risposta come JSON
+                            const responseData = response.json();
+
+                            // Mostra la risposta nell'elemento div
+                            console.log(responseData.id);
+                        } catch (error) {
+                            // Gestisce gli errori
+                            console.log(error.message)
+                        }
 
                         fetch('http://localhost:3000/api/punteggio')
                             .then(response => {
@@ -627,6 +656,9 @@ function getQuestContent(context, panel, id) {
                     tdPunteggio.textContent = element.punteggio;
                     row.appendChild(tdId);
                     row.appendChild(tdPunteggio);
+                    if(element.id == ${id}){
+                        row.style.backgroundColor = '#FF0000'
+                    }
                     tbody.appendChild(row);
                     table.appendChild(tbody);
                 });
