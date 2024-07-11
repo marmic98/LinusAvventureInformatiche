@@ -539,29 +539,7 @@ function getQuestContent(context, panel, id) {
                             punteggio: errorCounter
                         } 
 
-                        try {
-                            // Esegue la richiesta POST
-                            const response = fetch('http://localhost:3000/api/punteggio/save', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(data)
-                            });
-                            // Controlla se la richiesta ha avuto successo
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-
-                            // Recupera la risposta come JSON
-                            const responseData = response.json();
-
-                            // Mostra la risposta nell'elemento div
-                            console.log(responseData.id);
-                        } catch (error) {
-                            // Gestisce gli errori
-                            console.log(error.message)
-                        }
+                        salvaPunteggio(data);
 
                         fetch('http://localhost:3000/api/punteggio')
                             .then(response => {
@@ -621,8 +599,35 @@ function getQuestContent(context, panel, id) {
                 });*/
             });
 
+            async function salvaPunteggio(data){
+            const responseData = 0;
+            try {
+                // Esegue la richiesta POST
+                const response = await fetch('http://localhost:3000/api/punteggio/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                // Controlla se la richiesta ha avuto successo
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Recupera la risposta come JSON
+                responseData = await response.json();
+
+                console.log(responseData.id);
+            } catch (error) {
+                console.log(error.message)
+            }
+            
+            return responseData;
+            
+            }
+
             function createTable(data) {
-                
 
                 // Crea la tabella
                 const table = document.createElement('table');
