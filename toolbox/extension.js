@@ -532,10 +532,11 @@ function getQuestContent(context, panel, id) {
                         classificaTitle.textContent = 'Classifica!'
                         document.body.appendChild(classificaTitle);
 
+                        let table = document.createElement('table')
+
+
                         fetch('http://localhost:3000/api/punteggio')
                             .then(response => {
-                                console.log('Response status:', response.status);  // Controlla lo stato della risposta
-                                console.log('Response headers:', response.headers); 
                                 if (!response.ok) {
                                     throw new Error('Network response was not ok');
                                 }
@@ -543,6 +544,7 @@ function getQuestContent(context, panel, id) {
                             })
                             .then(data => {
                                 console.log(data);  // Elenco i dati ottenuti
+                                createTable(data);
                             })
                             .catch(error => {
                                 console.error('errore di fetch:', error);
@@ -577,11 +579,9 @@ function getQuestContent(context, panel, id) {
                             currentIndex++;
                             updateContent(currentIndex);
                         } 
-                        console.log(document.getElementById('avanti').textContent);
                     }
                     else{
                         document.getElementById('avanti').value = 'Fine';    
-                        console.log(document.getElementById('avanti').textContent.toString());
                     }
                 });
 
@@ -592,6 +592,48 @@ function getQuestContent(context, panel, id) {
                     }
                 });*/
             });
+
+            function createTable(data) {
+                
+
+                // Crea la tabella
+                const table = document.createElement('table');
+
+                // Crea l'intestazione della tabella
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                
+                const headerUser = document.createElement('td');
+                const headerPunteggio = document.createElement('td');
+                
+                headerUser.textContent = 'User'
+                headerPunteggio.textContent = 'Punteggio'
+
+                headerRow.appendChild(headerPunteggio)
+                headerRow.appendChild(headerUser)
+                
+
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                // Crea il corpo della tabella
+                
+                let tbody = document.createElement('tbody')
+                data.forEach(element => {
+                    const row = document.createElement('tr');
+                    const tdId = document.createElement('td');
+                    tdId.textContent = element.id;
+                    const tdPunteggio = document.createElement('td');
+                    tdPunteggio.textContent = element.punteggio;
+                    row.appendChild(tdId);
+                    row.appendChild(tdPunteggio);
+                    tbody.appendChild(row);
+                    table.appendChild(tbody);
+                });
+
+                // Aggiungi la tabella al contenitore
+                document.body.appendChild(table);
+            }
         </script>
 
         <style>
