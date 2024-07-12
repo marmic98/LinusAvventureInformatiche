@@ -522,7 +522,7 @@ function getQuestContent(context, panel, id) {
             document.addEventListener('DOMContentLoaded', function() {
                 updateContent(currentIndex);
                 
-                document.getElementById('avanti').addEventListener('click', () => {
+                document.getElementById('avanti').addEventListener('click', async () => {
                     if(document.getElementById('avanti').value === 'Fine'){
                         document.body.style.backgroundImage = '';
                         document.getElementById('pgCont').remove()
@@ -539,22 +539,7 @@ function getQuestContent(context, panel, id) {
                             punteggio: errorCounter
                         } 
 
-                        salvaPunteggio(data);
-
-                        fetch('http://localhost:3000/api/punteggio')
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                console.log(data);  // Elenco i dati ottenuti
-                                createTable(data);
-                            })
-                            .catch(error => {
-                                console.error('errore di fetch:', error);
-                        });
+                        await salvaMostraClassifica(data);
                     }    
                     else
                         vscode.postMessage({interaction: quests[currentIndex].interaction });
@@ -599,8 +584,25 @@ function getQuestContent(context, panel, id) {
                 });*/
             });
 
+            async function mostraClassifica(){
+                await fetch('http://localhost:3000/api/punteggio')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);  // Elenco i dati ottenuti
+                        createTable(data);
+                    })
+                    .catch(error => {
+                        console.error('errore di fetch:', error);
+                });
+            }
+
             async function salvaPunteggio(data){
-            const responseData = 0;
+            let responseData = 0;
             try {
                 // Esegue la richiesta POST
                 const response = await fetch('http://localhost:3000/api/punteggio/save', {
@@ -622,8 +624,13 @@ function getQuestContent(context, panel, id) {
             } catch (error) {
                 console.log(error.message)
             }
-            
-            return responseData;
+                return responseData;
+            }
+
+            async function salvaMostraClassifica(data){
+                await salvaPunteggio(data);
+
+                await mostraClassifica();
             
             }
 
