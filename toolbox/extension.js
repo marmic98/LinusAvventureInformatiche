@@ -454,63 +454,66 @@ function getQuestContent(context, panel, id) {
                 const pgImg = document.getElementById('pgImg');
                 baloon.innerHTML = \`\${quests[index].line}\`;
                 setTimeout(function () {
-                    if (index > 0 && quests[index].pg !== quests[index-1].pg){
-                        baloon.style.opacity = 1;
-                        pgImg.style.opacity = 1;
                         
-                        if(index%2 != 0){
-                            pgImg.style.float = 'left'; 
-                            baloon.classList.add('slide-in-left');
-                            
-                            baloon.addEventListener('animationend', () => {
-                                baloon.classList.remove('slide-in-left');
-                            });
-                        }
-                        else if (index%2 === 0){
+                    baloon.style.opacity = 1;
+                    pgImg.style.opacity = 1;
+
+                    if(quests[index].pg === 'Linus' || quests[index].pg === 'Cavallo'){
+                        pgImg.style.float = 'left'; 
+                        baloon.classList.add('slide-in-left');
+                        
+                        baloon.addEventListener('animationend', () => {
+                            baloon.classList.remove('slide-in-left');
+                        });
+                        pgImg.src = quests[index].imgSrc;
+                    }
+                    else {
+                        pgImg.style.float = 'right';
+                        baloon.classList.add('slide-in-right');
+                        baloon.addEventListener('animationend', () => {
+                            baloon.classList.remove('slide-in-right');
+                        });
+                        pgImg.src = quests[index].imgSrc;
+                    }
+                    switch (index) {
+                        case 0:
+                            document.body.style.backgroundImage = 'url(${bgUri1})';
                             pgImg.style.float = 'right';
                             baloon.classList.add('slide-in-right');
                             baloon.addEventListener('animationend', () => {
                                 baloon.classList.remove('slide-in-right');
                             });
-                        }
-                        pgImg.src = quests[index].imgSrc;
-                    }else if(index === 0) {
-                        document.body.style.backgroundImage = 'url(${bgUri1})';
-                        pgImg.style.float = 'right';
-                        baloon.classList.add('slide-in-right');
-                        baloon.addEventListener('animationend', () => {
-                                baloon.classList.remove('slide-in-right');
-                            });
-                        pgImg.src = quests[index].imgSrc;
-                    }
-                    if(index == 7){
-                        baloon.classList.remove('slide-in-right');
-                        baloon.classList.remove('slide-in-left');
-                        document.body.style.backgroundImage = 'url(${bgUri2})';
-                        baloon.style.opacity = 0;
-                        pgImg.style.opacity = 0;
-                    }
-                    if(index == 20){
-                        baloon.classList.remove('slide-in-right');
-                        baloon.classList.remove('slide-in-left');
-                        document.body.style.backgroundImage = 'url(${bgUri3})';
-                        baloon.style.opacity = 0;
-                        pgImg.style.opacity = 0;
-                    }
-                    if(index == 27){
-                        baloon.classList.remove('slide-in-right');
-                        baloon.classList.remove('slide-in-left');
-                        document.body.style.backgroundImage = 'url(${bgUri4})';
-                        baloon.style.opacity = 0;
-                        pgImg.style.opacity = 0;
-                    }
-                    if(index == 32){
-                        baloon.classList.remove('slide-in-right');
-                        baloon.classList.remove('slide-in-left');
-                        document.body.style.backgroundImage = 'url(${bgUri5})';
-                        baloon.style.opacity = 0;
-                        pgImg.style.opacity = 0;
-                    }
+                            pgImg.src = quests[index].imgSrc;
+                            break;
+                        case 7:
+                            baloon.classList.remove('slide-in-right');
+                            baloon.classList.remove('slide-in-left');
+                            document.body.style.backgroundImage = 'url(${bgUri2})';
+                            baloon.style.opacity = 0;
+                            pgImg.style.opacity = 0;
+                            break;
+                        case 20:
+                            baloon.classList.remove('slide-in-right');
+                            baloon.classList.remove('slide-in-left');
+                            document.body.style.backgroundImage = 'url(${bgUri3})';
+                            baloon.style.opacity = 0;
+                            pgImg.style.opacity = 0;
+                            break; 
+                        case 27:
+                            baloon.classList.remove('slide-in-right');
+                            baloon.classList.remove('slide-in-left');
+                            document.body.style.backgroundImage = 'url(${bgUri4})';
+                            baloon.style.opacity = 0;
+                            pgImg.style.opacity = 0;
+                            break;
+                        case 32:
+                            baloon.classList.remove('slide-in-right');
+                            baloon.classList.remove('slide-in-left');
+                            document.body.style.backgroundImage = 'url(${bgUri5})';
+                            baloon.style.opacity = 0;
+                            pgImg.style.opacity = 0;
+                            break;
+                    }    
                 }, 0);
                 
                 
