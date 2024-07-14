@@ -187,6 +187,16 @@ function getQuestContent(context, panel, id) {
     const bgUri5 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg5.png`))).toString();
 
     var quests = [
+        //0 INIZIO
+        {
+            sfondo: bgUri1,
+            interaction:2,
+        },
+        {
+            pg: "Linus",
+            line: "Che posto è questo?!",
+            interaction: 0,
+        },
         {
             pg: "Ritchie",
             line: "Ciao! Mi chiamo Ritchie. Ti do il mio benvenuto nella ridente CodeLand!",
@@ -194,17 +204,17 @@ function getQuestContent(context, panel, id) {
         },
         {
             pg: "Linus",
-            line: "Cia-a-a-o Ritchie! Come faccio a tornare a casa?",
+            line: "Un drago parlante?! Cia-a-a-o Ritchie! Mi chiamo Linus. Come faccio a tornare a casa?",
             interaction: 0,
         },
         {
             pg: "Ritchie",
-            line: "Quello che è successo a te è già successo ad un altro ragazzo. È stato lui a darmi questo nome. Il suo nome.\nPer tornare a casa lui suonò la campana del vecchio campanile nella Valle delle Variabili. Molte peripezie ti attenderanno!",
+            line: "Quello che è successo a te è già successo ad un altro ragazzo. È stato infatti lui a darmi questo nome, il suo nome.\nPer tornare a casa lui suonò la campana del vecchio campanile nella Valle delle Variabili. Ma è molto pericoloso!",
             interaction: 0,
         },
         {
             pg: "Linus",
-            line: "Devo tornare a casa prima delle 14!",
+            line: "Sono pronto a correre il rischio! Devo tornare a casa prima delle 14!",
             interaction: 0,
         },
         {
@@ -226,7 +236,7 @@ function getQuestContent(context, panel, id) {
             line: "Adesso siamo pronti per l’avventura…forse. Senza denaro non si è mai davvero pronti! Ecco a te cento denari",
             interaction:0,
         },
-        //GOBLIN 7
+        //GOBLIN 9
         {
             sfondo: bgUri2,
             interaction:2,
@@ -238,17 +248,17 @@ function getQuestContent(context, panel, id) {
         },
         {
             pg: "Linus",
-            line: "Dobbiamo raggiungere la Valle delle Variabili signor Goblin",
+            line: "Dobbiamo raggiungere la Valle delle Variabili, signor Goblin",
             interaction:0,
         },
         {
             pg: "Goblin",
-            line: "Ahah bene! Immagino non sappiate che per passare di qui ad una sola condizione: mi dovete un pedaggio che ammonta alla insulsa cifra di 70 denari",
+            line: "Ahah bene! Immagino non sappiate che potete passare di qui ad una sola condizione: mi dovete un pedaggio che ammonta alla insulsa cifra di 70 denari",
             interaction:0,
         },
         {
             pg: "Ritchie",
-            line: "Linus caro sapevo che quei cento denari ti sarebbero ritornati utili ma non pensavo così presto! Ti conviene fare quello che dice.",
+            line: "Linus sapevo che quei 100 denari ti sarebbero ritornati utili ma non pensavo così presto! Ti conviene fare quello che dice.",
             interaction:0,
         },
         {
@@ -259,12 +269,12 @@ function getQuestContent(context, panel, id) {
         },
         {
             pg: "Goblin",
-            line: "Grazie cari viaggiatori per la vostra gentilissima offerta. Vi auguro in viaggio tranquillo e privo di pericoli ihihih",
+            line: "Grazie cari viaggiatori per la vostra gentilissima offerta. Vi auguro un viaggio tranquillo e privo di pericoli ihihih",
             interaction:0,
         },
         {
             pg: "Ritchie",
-            line: "Si come no ciao ciao! Linus i goblin da queste parti non agiscono mai da soli.",
+            line: "Si, come no, ciao ciao! Linus i goblin da queste parti non agiscono mai da soli.",
             interaction:0,
         },
         {
@@ -298,7 +308,7 @@ function getQuestContent(context, panel, id) {
             line: "Visto?! È stato facile come invocare una funzione! Sapevi che le funzioni possono richiedere dei dati in ingresso per poter funzionare? Basta inserirli tra le parentesi che seguono il nome della funzione. Inoltre, le funzioni possono restituire dei dati in uscita che potranno essere usati per valorizzare delle variabili!",
             interaction:0,
         },
-        //CAPO GOBLIN 20
+        //CAPO GOBLIN 23
         {
             sfondo: bgUri3,
             interaction:2,
@@ -335,7 +345,7 @@ function getQuestContent(context, panel, id) {
             line: "Sei stato fortissimo Linus!",
             interaction: 0,
         },
-        //PORTONE 27
+        //PORTONE 29
         {
             sfondo: bgUri4,
             interaction: 2
@@ -347,7 +357,11 @@ function getQuestContent(context, panel, id) {
         },
         {
             pg: "Ritchie",
-            line: "Invece un trucco c’è! Vedi quel piccolo punto dorato vicino alla serratura? Se colpissi dieci volte quel punto esatto il portone si aprirà. Per farlo dovrai effettuare l’iterazione di un colpo finché non ne avrai scagliati dieci. Puoi farlo con il costrutto while(condizione){ colpisci(); }. Prova tu a scrivere la condizione utilizzando una variabile contatore_colpi che dovrai precedentemente dichiarare come variabile int inizializzata con il valore 0. Non dimenticare di incrementare contatore_colpi subito dopo aver colpito!",
+            line: "Invece un trucco c’è! Vedi quel piccolo punto dorato vicino alla serratura? Se colpisci dieci volte quel punto esatto con la tua magia, il portone si aprirà.",
+        },
+        {
+            pg: "Ritchie",
+            line: "Per farlo dovrai effettuare l’iterazione di un colpo finché non ne avrai scagliati dieci. Puoi farlo con il costrutto while(condizione){ colpisci(); }. Prova tu a scrivere la condizione utilizzando una variabile contatore_colpi che dovrai precedentemente dichiarare come variabile int inizializzata con il valore 0. Non dimenticare di incrementare contatore_colpi subito dopo aver colpito!",
             interaction:1,
             regexQuest: '[\\s\\S]*int\\s+contatore_colpi\\s*=\\s*0\\s*;\\s*while\\s*\\(\\s*contatore_colpi\\s*<\\s*10\\s*\\)\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*contatore_colpi\\s*=\\s*contatore_colpi\\s*\\+\\s*1\\s*;\\s*\\}[\\s\\S]*$',
         },
@@ -362,7 +376,7 @@ function getQuestContent(context, panel, id) {
             interaction: 0,
         },
         //parte della valle degli UNO
-        //32 Campanile
+        //35 Campanile
         {
             sfondo: bgUri5,
             interaction: 2
@@ -376,12 +390,22 @@ function getQuestContent(context, panel, id) {
             pg: "Linus",
             line: "Hai visto Ritchie? Le corde delle campane si illuminano come raggi di sole quando le campane stanno per rintoccare!",
             interaction:0,
+        }, 
+        {
+            pg: "Ritchie",
+            line: "Adesso ricordo come fare! Per farlo però dovrai usare tutto ciò che hai imparato in questo viaggio! Dovrai contare sette rintocchi ma ogni rintocco dovrà essere fatto tirando la corda che si illuminerà! Ciò ti richiede di mescolare l’interazione e if/else. Prova a scrivere un’iterazione che durerà fino a che i rintocchi non saranno sette. A CodeLand 1 significa condizione vera mentre 0 significa condizione falsa!",
+            interaction: 0,
         },
         {
             pg: "Ritchie",
-            line: "Adesso ricordo come fare! Per farlo però dovrai usare tutto ciò che hai imparato in questo viaggio! Dovrai contare sette rintocchi ma ogni rintocco dovrà essere fatto tirando la corda che si illuminerà! Ciò ti richiede di mescolare l’interazione e if/else. Prova a scrivere un’iterazione che durerà fino a che i rintocchi non saranno sette. Per ogni iterazione dovrai verificare se la corda che si illumina è la sinistra mediante la funzione cordaTirataSinistra(); Questa funzione restituisce 1 se si altrimenti restituisce 0. A CodeLand 1 significa condizione vera mentre 0 significa condizione falsa! Altrimenti ad illuminarsi sarà la corda destra. Quando avrai tirato la campana con la funzione tiraCordaSinistra(); o tiraCordaDestra(); non dimenticarti di incrementare il contatore_rintocchi che ti servirà nel while per contare i sette rintocchi!",
+            line: "Per ogni iterazione dovrai verificare se la corda che si illumina è la sinistra mediante la funzione cordaTirataSinistra(); Questa funzione restituisce 1 se si altrimenti restituisce 0. Altrimenti ad illuminarsi sarà la corda destra. Quando avrai tirato la campana con la funzione tiraCordaSinistra(); o tiraCordaDestra(); non dimenticarti di incrementare il contatore_rintocchi che ti servirà nel while per contare i sette rintocchi!",
             interaction:1,
             regexQuest: '[\\s\\S]*while\\s*\\(\\s*contatore_rintocchi\\s*<\\s*7\\s*\\)\\s*\\{\\s*if\\s*\\(\\s*cordaTirataSinistra\\s*\\(\\s*\\)\\s*\\)\\s*\\{\\s*tiraCordaSinistra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*else\\s*\\{\\s*tiraCordaDestra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*\\}[\\s\\S]*$',
+        },
+        {
+            pg: "Ritchie",
+            line: "Sei bravissimo Ritchie!",
+            interaction:0,
         },
         {
             pg: "Ritchie",
@@ -491,36 +515,34 @@ function getQuestContent(context, panel, id) {
                     
                     switch (index) {
                         case 0:
+                            baloon.classList.remove('slide-in-right');
+                            baloon.classList.remove('slide-in-left');
                             document.body.style.backgroundImage = 'url(${bgUri1})';
-                            pgImg.style.float = 'right';
-                            baloon.classList.add('slide-in-right');
-                            baloon.addEventListener('animationend', () => {
-                                baloon.classList.remove('slide-in-right');
-                            });
-                            pgImg.src = quests[index].imgSrc;
+                            baloon.style.opacity = 0;
+                            pgImg.style.opacity = 0;
                             break;
-                        case 7:
+                        case 9:
                             baloon.classList.remove('slide-in-right');
                             baloon.classList.remove('slide-in-left');
                             document.body.style.backgroundImage = 'url(${bgUri2})';
                             baloon.style.opacity = 0;
                             pgImg.style.opacity = 0;
                             break;
-                        case 20:
+                        case 23:
                             baloon.classList.remove('slide-in-right');
                             baloon.classList.remove('slide-in-left');
                             document.body.style.backgroundImage = 'url(${bgUri3})';
                             baloon.style.opacity = 0;
                             pgImg.style.opacity = 0;
                             break; 
-                        case 27:
+                        case 30:
                             baloon.classList.remove('slide-in-right');
                             baloon.classList.remove('slide-in-left');
                             document.body.style.backgroundImage = 'url(${bgUri4})';
                             baloon.style.opacity = 0;
                             pgImg.style.opacity = 0;
                             break;
-                        case 32:
+                        case 36:
                             baloon.classList.remove('slide-in-right');
                             baloon.classList.remove('slide-in-left');
                             document.body.style.backgroundImage = 'url(${bgUri5})';
