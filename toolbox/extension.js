@@ -162,7 +162,7 @@ function setReadOnly(filePath) {
 
 function generateUniqueId() {
     // Genera un ID unico usando Date e Math.random
-    return `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
+    return Date.now() - Math.floor(Math.random() * 1000000);
 }
 
 async function readFileContent(uri) {
@@ -179,6 +179,13 @@ async function readFileContent(uri) {
 
 
 function getQuestContent(context, panel, id) {
+
+    const bgUri1 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg1.png`))).toString();
+    const bgUri2 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg2.png`))).toString();
+    const bgUri3 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg3.png`))).toString();
+    const bgUri4 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg4.png`))).toString();
+    const bgUri5 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg5.png`))).toString();
+
     var quests = [
         {
             pg: "Ritchie",
@@ -221,6 +228,7 @@ function getQuestContent(context, panel, id) {
         },
         //GOBLIN 7
         {
+            sfondo: bgUri2,
             interaction:2,
         },
         {
@@ -292,6 +300,7 @@ function getQuestContent(context, panel, id) {
         },
         //CAPO GOBLIN 20
         {
+            sfondo: bgUri3,
             interaction:2,
         },
         {
@@ -328,6 +337,7 @@ function getQuestContent(context, panel, id) {
         },
         //PORTONE 27
         {
+            sfondo: bgUri4,
             interaction: 2
         },
         {
@@ -354,6 +364,7 @@ function getQuestContent(context, panel, id) {
         //parte della valle degli UNO
         //32 Campanile
         {
+            sfondo: bgUri5,
             interaction: 2
         },
         {
@@ -394,12 +405,6 @@ function getQuestContent(context, panel, id) {
         const imgUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `${quest.pg}.png`)));
         return { ...quest, imgSrc: imgUri.toString() };
     });
-
-    const bgUri1 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg1.png`))).toString();
-    const bgUri2 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg2.png`))).toString();
-    const bgUri3 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg3.png`))).toString();
-    const bgUri4 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg4.png`))).toString();
-    const bgUri5 = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `bg5.png`))).toString();
 
     const ostUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `ost.wav`))).toString();
 
@@ -464,6 +469,7 @@ function getQuestContent(context, panel, id) {
                     baloon.style.opacity = 1;
                     pgImg.style.opacity = 1;
 
+                    
                     if(quests[index].pg === 'Linus' || quests[index].pg === 'Cavallo'){
                         pgImg.style.float = 'left'; 
                         baloon.classList.add('slide-in-left');
@@ -482,6 +488,7 @@ function getQuestContent(context, panel, id) {
                         });
                         pgImg.src = quests[index].imgSrc;
                     }
+                    
                     switch (index) {
                         case 0:
                             document.body.style.backgroundImage = 'url(${bgUri1})';
@@ -522,12 +529,8 @@ function getQuestContent(context, panel, id) {
                             break;
                     }    
                 }, 0);
-                
-                
-            }
 
-            
-    
+            }
 
             document.addEventListener('DOMContentLoaded', function() {
                 updateContent(currentIndex);
@@ -540,7 +543,7 @@ function getQuestContent(context, panel, id) {
                         
                         let score = document.createElement('p');
                         score.id = 'score';
-                        let testoErrori = 'Hai fatto ' + errorCounter+' errori!'
+                        let testoErrori = 'Hai fatto ' + errorCounter + ' error' + (errorCounter === 1 ? 'e' : 'i');
                         score.textContent = testoErrori
                         score.style.fontSize = 40+'px'
                         document.body.appendChild(score);
@@ -701,6 +704,7 @@ function getQuestContent(context, panel, id) {
                     row.appendChild(tdPunteggio);
                     if(element.id == ${id}){
                         row.style.backgroundColor = '#FFFF00'
+                        row.style.color = 'black'
                     }
 
                     tbody.appendChild(row);
@@ -770,17 +774,32 @@ function getQuestContent(context, panel, id) {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;
-                background-color: #8699CE;
+                align-items: center;
+                padding: 10px;
+                border-radius: 15px;
+                border: 1px;
+                background-color: #6258FF;
             }
             #dashboard input{
                 height: 60px;
                 width: 100px;
+                border: none;
+                box-shadow:none;
+                background-color: #EFCA08;
+                border-radius: 15px;
+                font-weight: bold;
+                font-size: 15px;
             }
 
             #play-button {
-                width: 50px;
-                height: 50px;
+                width: 32px;
+                height: 32px;
                 background-color: transparent;
+                background-size: cover;   
+                background-repeat: no-repeat; 
+                background-position: center;
+                box-shadow: none;
+                border: none;
             }
 
         </style>
