@@ -537,9 +537,8 @@ function getQuestContent(context, panel, id) {
                 
                 document.getElementById('avanti').addEventListener('click', async () => {
                     if(document.getElementById('avanti').value === 'Fine'){
-                        let playButton = document.getElementById('play-button')
-                        playButton.style.backgroundColor = '#6258FF' 
-                        document.body.style.backgroundColor = '#6258FF'
+                        let playButton = document.getElementById('play-button') 
+                        document.body.style.backgroundColor = '#6156fc62'
                         document.body.style.backgroundImage = ''
                         document.body.style.color = 'yellow'
                         document.getElementById('pgCont').remove()
