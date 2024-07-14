@@ -210,7 +210,7 @@ function getQuestContent(context, panel, id) {
         },
         {
             pg: "Ritchie",
-            line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1. Adesso scegli il tuo equipaggiamento dalla legenda",
+            line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1;. Adesso scegli il tuo equipaggiamento dalla legenda",
             interaction:1,
             regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-5]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-5]\\s*;\\s*int\\s+magia\\s*=\\s*[1-5]\\s*;[\\s\\S]*$',
         },
@@ -266,13 +266,18 @@ function getQuestContent(context, panel, id) {
         },
         {
             pg: "Ritchie",
-            line: "A questo c’è rimedio! Sapevi di avere un fedele destriero in questo mondo? Tutti i cittadini ne hanno uno. L’unica decisione buona presa dal governatore di queste terre nonché quella che lo ha fatto diventare governatore. Ma torniamo a noi: Chiama il tuo destriero usando la funzione “chiamaDestriero();”. Le funzioni sono molto utili perché al suo interno contengono del codice che compie un’azione. All’utilizzatore di essa non interessa come sia fatta la funzione ma sapere solo quel è il suo compito e invocarla al momento giusto. Prova a chiamare il cavallo adesso",
+            line: "A questo c’è rimedio! Sapevi di avere un fedele destriero in questo mondo? Tutti i cittadini ne hanno uno. L’unica decisione buona presa dal governatore di queste terre nonché quella che lo ha fatto diventare governatore.",
+            interaction:0,
+        },
+        {
+            pg: "Ritchie",
+            line: "Ma torniamo a noi: Chiama il tuo destriero usando la funzione “chiamaDestriero();”. Le funzioni sono molto utili perché al suo interno contengono del codice che compie un’azione. All’utilizzatore di essa non interessa come sia fatta la funzione ma sapere solo quel è il suo compito e invocarla al momento giusto. Prova a chiamare il cavallo adesso",
             interaction:1,
             regexQuest: '[\\s\\S]*chiamaDestriero\\s*\\(\\s*\\);[\\s\\S]*$',
         },
         {
             pg: "Cavallo",
-            line: "(nitrisce)",
+            line: "IIIIIIIIH (nitrisce)",
             interaction:0,
         },
         {
@@ -446,13 +451,14 @@ function getQuestContent(context, panel, id) {
             function errorDetected(message, index){
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
-                baloon.innerHTML = \`\${quests[index].line}<br><br>\${message}\`;
+                baloon.innerHTML = \`\${quests[index].line}<br>\${message}\`;
             }
 
             function updateContent(index) {
                 const baloon = document.getElementById('baloon');
                 const pgImg = document.getElementById('pgImg');
                 baloon.innerHTML = \`\${quests[index].line}\`;
+                baloon.style.fontSize = 18+'px'
                 setTimeout(function () {
                         
                     baloon.style.opacity = 1;
@@ -465,6 +471,7 @@ function getQuestContent(context, panel, id) {
                         baloon.addEventListener('animationend', () => {
                             baloon.classList.remove('slide-in-left');
                         });
+
                         pgImg.src = quests[index].imgSrc;
                     }
                     else {
@@ -530,11 +537,27 @@ function getQuestContent(context, panel, id) {
                         document.body.style.backgroundImage = '';
                         document.getElementById('pgCont').remove()
                         document.getElementById('dashboard').remove()
+                        
+                        let score = document.createElement('p');
+                        score.id = 'score';
+                        let testoErrori = 'Hai fatto ' + errorCounter+' errori!'
+                        score.textContent = testoErrori
+                        score.style.fontSize = 40+'px'
+                        document.body.appendChild(score);
+
+                        let idUtente = document.createElement('p');
+                        score.id = 'idUtente';
+                        let testoUtente = 'Il tuo id è ${id}'
+                        idUtente.textContent = testoUtente
+                        idUtente.style.fontSize = 40+'px'
+                        document.body.appendChild(idUtente);
+
                         let classificaTitle = document.createElement('p');
                         classificaTitle.id = 'classificaTitle';
                         classificaTitle.textContent = 'Classifica!'
+                        classificaTitle.style.fontSize = 30+'px'
                         document.body.appendChild(classificaTitle);
-
+                        
                         let table = document.createElement('table')
 
                         const data = {
@@ -650,8 +673,11 @@ function getQuestContent(context, panel, id) {
                 const headerPunteggio = document.createElement('td');
                 
                 headerUser.textContent = 'User'
-                headerPunteggio.textContent = 'Punteggio'
+                headerPunteggio.textContent = 'Errori'
           
+                headerUser.style.fontSize = 30+'px'
+                headerPunteggio.style.fontSize = 30+'px'
+
                 headerRow.appendChild(headerUser)
                 headerRow.appendChild(headerPunteggio)                
 
@@ -667,11 +693,16 @@ function getQuestContent(context, panel, id) {
                     tdId.textContent = element.id;
                     const tdPunteggio = document.createElement('td');
                     tdPunteggio.textContent = element.punteggio;
+
+                    tdId.style.fontSize = 28+'px'
+                    tdPunteggio.style.fontSize = 28+'px'
+
                     row.appendChild(tdId);
                     row.appendChild(tdPunteggio);
                     if(element.id == ${id}){
-                        row.style.backgroundColor = '#FF0000'
+                        row.style.backgroundColor = '#FFFF00'
                     }
+
                     tbody.appendChild(row);
                     table.appendChild(tbody);
                 });
@@ -691,9 +722,7 @@ function getQuestContent(context, panel, id) {
                 background-repeat: no-repeat;
             }
 
-            #pgCont{
-                margin-bottom: 30px;
-            }
+            
 
             #pgImg{
                 height: 600px;
@@ -726,7 +755,7 @@ function getQuestContent(context, panel, id) {
                 border-radius: 15px;
                 padding: 20px;
                 margin-bottom: 50px;
-                height: 100px; 
+                height: 130px; 
             }
 
             .slide-in-left {
@@ -741,6 +770,7 @@ function getQuestContent(context, panel, id) {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;
+                background-color: #8699ce;
             }
             #dashboard input{
                 height: 60px;
