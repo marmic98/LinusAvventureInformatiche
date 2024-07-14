@@ -770,7 +770,7 @@ function getQuestContent(context, panel, id) {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;
-                background-color: #8699ce;
+                background-color: #8699CE;
             }
             #dashboard input{
                 height: 60px;
