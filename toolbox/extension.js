@@ -229,7 +229,7 @@ function getQuestContent(context, panel, id) {
             pg: "Ritchie",
             line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1;. Adesso scegli il tuo equipaggiamento dalla legenda",
             interaction:1,
-            regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-5]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-5]\\s*;\\s*int\\s+magia\\s*=\\s*[1-5]\\s*;[\\s\\S]*$',
+            regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*$',
         },
         {
             pg: "Ritchie",
@@ -434,6 +434,7 @@ function getQuestContent(context, panel, id) {
 
     const audio = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `audio.png`))).toString();
     const no_audio = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `no-audio.png`))).toString();
+    const legendaUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', `legenda.png`))).toString();
     
     return `<!DOCTYPE html>
     <html lang="en">
@@ -505,6 +506,18 @@ function getQuestContent(context, panel, id) {
                         pgImg.src = quests[index].imgSrc;
                     }
                     else {
+                        let legenda = 0;
+                        if(index === 7){
+                            const pgCont = document.getElementById('pgCont');
+                            legenda = document.createElement('img')
+                            legenda.id = 'legenda'
+                            legenda.width = 150
+                            legenda.height = 400
+                            legenda.src = '${legendaUri}';
+                            pgCont.appendChild(legenda)
+                        }else if(index === 8){
+                            document.getElementById('legenda').remove()
+                        }
                         pgImg.style.float = 'right';
                         baloon.classList.add('slide-in-right');
                         baloon.addEventListener('animationend', () => {
@@ -564,6 +577,7 @@ function getQuestContent(context, panel, id) {
                         document.body.style.backgroundImage = ''
                         document.body.style.color = 'yellow'
                         document.getElementById('pgCont').remove()
+                        document.getElementById('baloon').remove()
                         document.getElementById('dashboard').remove()
                         document.body.appendChild(playButton);
 
@@ -752,8 +766,6 @@ function getQuestContent(context, panel, id) {
                 background-repeat: no-repeat;
             }
 
-            
-
             #pgImg{
                 height: 600px;
                 width: 600px;
@@ -828,12 +840,17 @@ function getQuestContent(context, panel, id) {
                 border: none;
             }
 
+            #pgCont{
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
         </style>
 
     </head>
     <body>
-        <div id="pgCont">
-            <div id="baloon"></div>
+        <div id="baloon"></div>
+        <div id="pgCont">    
             <img id="pgImg" alt="Personaggio"/>
         </div>
         <div id = "dashboard">
