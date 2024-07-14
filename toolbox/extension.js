@@ -537,13 +537,18 @@ function getQuestContent(context, panel, id) {
                 
                 document.getElementById('avanti').addEventListener('click', async () => {
                     if(document.getElementById('avanti').value === 'Fine'){
-                        document.body.style.backgroundImage = '';
+                        let playButton = document.getElementById('play-button')
+                        playButton.style.backgroundColor = '#6258FF' 
+                        document.body.style.backgroundColor = '#6258FF'
+                        document.body.style.backgroundImage = ''
+                        document.body.style.color = 'yellow'
                         document.getElementById('pgCont').remove()
                         document.getElementById('dashboard').remove()
-                        
+                        document.body.appendChild(playButton);
+
                         let score = document.createElement('p');
                         score.id = 'score';
-                        let testoErrori = 'Hai fatto ' + errorCounter + ' error' + (errorCounter === 1 ? 'e' : 'i');
+                        let testoErrori = 'Hai commesso ' + errorCounter + ' error' + (errorCounter === 1 ? 'e' : 'i');
                         score.textContent = testoErrori
                         score.style.fontSize = 40+'px'
                         document.body.appendChild(score);
@@ -557,7 +562,7 @@ function getQuestContent(context, panel, id) {
 
                         let classificaTitle = document.createElement('p');
                         classificaTitle.id = 'classificaTitle';
-                        classificaTitle.textContent = 'Classifica!'
+                        classificaTitle.textContent = 'La classifica globale'
                         classificaTitle.style.fontSize = 30+'px'
                         document.body.appendChild(classificaTitle);
                         
@@ -703,7 +708,7 @@ function getQuestContent(context, panel, id) {
                     row.appendChild(tdId);
                     row.appendChild(tdPunteggio);
                     if(element.id == ${id}){
-                        row.style.backgroundColor = '#FFFF00'
+                        row.style.backgroundColor = 'red'
                         row.style.color = 'black'
                     }
 
