@@ -223,13 +223,17 @@ function getQuestContent(context, panel, id) {
             "\nA CodeLand ogni elemento è contenuto in una scatola detta variabile con un nome e un tipo. Il tipo serve a specificare che tipo di dato può contenere la varibile ossia il valore!" +
             "Indica, usando la legenda, per ogni categoria l’intero associato all’oggetto che intendi equipaggiare. Io dichiaro di fare uso della magia in questo modo: “int magia;”. Adesso prova tu! ",
             interaction: 1,
-            regexQuest: '[\\s\\S]*int\\s+arma;\\s*int\\s+difesa;\\s*int\\s+magia;[\\s\\S]*$',
+            //regexQuest: '[\\s\\S]*int\\s+arma;\\s*int\\s+difesa;\\s*int\\s+magia;[\\s\\S]*$',
+            regexQuest: '[\\s\\S]*int\\s+arma;\\s*int\\s+difesa;\\s*int\\s+magia;\\s*|int\\s+arma;\\s*int\\s+magia;\\s*int\\s+difesa;\\s*|int\\s+difesa;\\s*int\\s+arma;\\s*int\\s+magia;\\s*|int\\s+difesa;\\s*int\\s+magia;\\s*int\\s+arma;\\s*|int\\s+magia;\\s*int\\s+arma;\\s*int\\s+difesa;\\s*|int\\s+magia;\\s*int\\s+difesa;\\s*int\\s+arma;\\s[\\s\\S]*$',
+
+
         },
         {
             pg: "Ritchie",
             line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1;. Adesso scegli il tuo equipaggiamento dalla legenda",
             interaction:1,
-            regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*$',
+            //regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*$',
+            regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;[\\s\\S]*$'
         },
         {
             pg: "Ritchie",
@@ -263,9 +267,9 @@ function getQuestContent(context, panel, id) {
         },
         {
             pg: "Ritchie",
-            line: "Verifica di avere almeno 70 denari in questo modo “if(denari >= 70) {” così da controllare se sei in possesso del denaro necessario e poi consegna il denaro sottraendolo a quello in tuo possesso in questo modo “portafogli = portafogli – 70;”. Non dimenticare di mettere una parentesi graffa chiusa per chiudere il blocco della condizione ( } )",
+            line: "Verifica di avere almeno 70 denari in questo modo “if(portafogli >= 70) {” così da controllare se sei in possesso del denaro necessario e poi consegna il denaro sottraendolo a quello in tuo possesso in questo modo “portafogli = portafogli – 70;”. Non dimenticare di mettere una parentesi graffa chiusa per chiudere il blocco della condizione ( } )",
             interaction:1,
-            regexQuest: '[\\s\\S]*if\\s*\\(\\s*portafogli\\s*>=\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}[\\s\\S]*$',
+            regexQuest: '[\\s\\S]*if\\s*\\(\\s*portafogli\\s*>=\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*(?:=\\s*portafogli\\s*-\\s*70|-=\\s*70)\\s*;\\s*\\}[\\s\\S]*$',
         },
         {
             pg: "Goblin",
@@ -327,8 +331,7 @@ function getQuestContent(context, panel, id) {
             pg: "Ritchie",
             line: "Verifica di avere almeno 70 denari e se la condizione è vera sottrai il denaro al tuo portafogli. Altrimenti, se la condizione di possedere 70 denari non fosse verificata, pianifica un attacco come azione alternativa. Per fare questo, dopo il blocco di verifica di possesso del denaro, puoi pianificare un attacco usando la funzione colpisci() in questo modo:  else{ \n colpisci(); \n}",
             interaction:1,
-            regexQuest: '[\\s\\S]*if\\s*\\(\\s*portafogli\\s*>=\\s*70\\s*\\)\\s*\{\\s*portafogli\\s*=\\s*portafogli\\s*-\\s*70\\s*;\\s*\\}[\\s\\S]*$',
-
+            regexQuest: '[\\s\\S]*if\\s*\\(\\s*portafogli\\s*>=\\s*70\\s*\\)\\s*\\{\\s*portafogli\\s*(?:=\\s*portafogli\\s*-\\s*70|-=\\s*70)\\s*;\\s*\\}\\s*else\\s*\\{\\s*colpisci\\(\\s*\\);\\s*\\}[\\s\\S]*$',
         },
         {
             pg: "Linus",
@@ -363,7 +366,7 @@ function getQuestContent(context, panel, id) {
             pg: "Ritchie",
             line: "Per farlo dovrai effettuare l’iterazione di un colpo finché non ne avrai scagliati dieci. Puoi farlo con il costrutto while(condizione){ colpisci(); }. Prova tu a scrivere la condizione utilizzando una variabile contatore_colpi che dovrai precedentemente dichiarare come variabile int inizializzata con il valore 0. Non dimenticare di incrementare contatore_colpi subito dopo aver colpito!",
             interaction:1,
-            regexQuest: '[\\s\\S]*int\\s+contatore_colpi\\s*=\\s*0\\s*;\\s*while\\s*\\(\\s*contatore_colpi\\s*<\\s*10\\s*\\)\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*contatore_colpi\\s*=\\s*contatore_colpi\\s*\\+\\s*1\\s*;\\s*\\}[\\s\\S]*$',
+            regexQuest: '[\\s\\S]*int\\s+contatore_colpi\\s*=\\s*0\\s*;\\s*while\\s*\\(\\s*contatore_colpi\\s*<\\s*10\\s*\\)\\s*\\{\\s*colpisci\\s*\\(\\s*\\)\\s*;\\s*(contatore_colpi\\s*=\\s*contatore_colpi\\s*\\+\\s*1|contatore_colpi\\+\\+|contatore_colpi\\s*\\+=\\s*1)\\s*;\\s*\\}[\\s\\S]*$',
         },
         {
             pg: "Linus",
@@ -400,7 +403,7 @@ function getQuestContent(context, panel, id) {
             pg: "Ritchie",
             line: "Per ogni iterazione dovrai verificare se la corda che si illumina è la sinistra mediante la funzione cordaTirataSinistra(); Questa funzione restituisce 1 se si altrimenti restituisce 0. Altrimenti ad illuminarsi sarà la corda destra. Quando avrai tirato la campana con la funzione tiraCordaSinistra(); o tiraCordaDestra(); non dimenticarti di incrementare il contatore_rintocchi che ti servirà nel while per contare i sette rintocchi!",
             interaction:1,
-            regexQuest: '[\\s\\S]*while\\s*\\(\\s*contatore_rintocchi\\s*<\\s*7\\s*\\)\\s*\\{\\s*if\\s*\\(\\s*cordaTirataSinistra\\s*\\(\\s*\\)\\s*\\)\\s*\\{\\s*tiraCordaSinistra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*else\\s*\\{\\s*tiraCordaDestra\\s*\\(\\s*\\)\\s*;\\s*contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1\\s*;\\s*\\}\\s*\\}[\\s\\S]*$',
+            regexQuest: '[\\s\\S]*while\\s*\\(\\s*contatore_rintocchi\\s*<\\s*7\\s*\\)\\s*\\{\\s*if\\s*\\(\\s*cordaTirataSinistra\\s*\\(\\s*\\)\\s*\\)\\s*\\{\\s*tiraCordaSinistra\\s*\\(\\s*\\)\\s*;\\s*(contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1|contatore_rintocchi\\+\\+|contatore_rintocchi\\s*\\+=\\s*1)\\s*;\\s*\\}\\s*else\\s*\\{\\s*tiraCordaDestra\\s*\\(\\s*\\)\\s*;\\s*(contatore_rintocchi\\s*=\\s*contatore_rintocchi\\s*\\+\\s*1|contatore_rintocchi\\+\\+|contatore_rintocchi\\s*\\+=\\s*1)\\s*;\\s*\\}\\s*\\}[\\s\\S]*$',
         },
         {
             pg: "Ritchie",
