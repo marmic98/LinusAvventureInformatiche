@@ -494,7 +494,13 @@ function getQuestContent(context, panel, id) {
                     baloon.style.opacity = 1;
                     pgImg.style.opacity = 1;
 
-                    
+                    if(quests[index].interaction === 1){
+                        baloon.style.backgroundColor = 'green';
+                        baloon.style.color = 'white';
+                    } else{
+                        baloon.style.backgroundColor = '#EFCA08';
+                        baloon.style.color = 'black';
+                    }
                     if(quests[index].pg === 'Linus' || quests[index].pg === 'Cavallo'){
                         pgImg.style.float = 'left'; 
                         baloon.classList.add('slide-in-left');
@@ -531,8 +537,9 @@ function getQuestContent(context, panel, id) {
                             baloon.classList.remove('slide-in-right');
                             baloon.classList.remove('slide-in-left');
                             document.body.style.backgroundImage = 'url(${bgUri1})';
-                            baloon.style.opacity = 0;
                             pgImg.style.opacity = 0;
+                            baloon.textContent = 'Benvenuto in \"Linus e le avventure Informatiche!\" \\n Aiuta Linus a superare le sfide che incontrerà lungo il suo cammino scrivendo codice in C!\\nQuando la nuvoletta di testo diventa verde inserisci il codice richiesto per andare avanti\\n Se tenti di andare avanti e il codice è sbagliato verrà conteggiato un errore\\n Buon Viaggio!' 
+
                             break;
                         case 9:
                             baloon.classList.remove('slide-in-right');
