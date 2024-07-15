@@ -538,7 +538,7 @@ function getQuestContent(context, panel, id) {
                             baloon.classList.remove('slide-in-left');
                             document.body.style.backgroundImage = 'url(${bgUri1})';
                             pgImg.style.opacity = 0;
-                            baloon.textContent = 'Benvenuto in \"Linus e le avventure Informatiche!\" \\n Aiuta Linus a superare le sfide che incontrerà lungo il suo cammino scrivendo codice in C!\\nQuando la nuvoletta di testo diventa verde inserisci il codice richiesto per andare avanti\\n Se tenti di andare avanti e il codice è sbagliato verrà conteggiato un errore\\n Buon Viaggio!' 
+                            baloon.innerHTML = 'Benvenuto in <strong>"Linus e le avventure Informatiche!"</strong> <br>Aiuta Linus a superare le sfide che incontrerà lungo il suo cammino scrivendo codice in C!<br> <strong>Quando la nuvoletta di testo diventa verde inserisci il codice richiesto in sandbox.c a destra per andare avanti.</strong><br>Se tenti di andare avanti e il codice è sbagliato verrà conteggiato un errore.<br>Buon Viaggio!' 
 
                             break;
                         case 9:
