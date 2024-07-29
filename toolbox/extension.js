@@ -232,7 +232,6 @@ function getQuestContent(context, panel, id) {
             pg: "Ritchie",
             line: "Adesso inizializzo la mia magia con Palla Di Fuoco in questo modo: magia = 1;. Adesso scegli il tuo equipaggiamento dalla legenda",
             interaction:1,
-            //regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*$',
             regexQuest: '[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;[\\s\\S]*|[\\s\\S]*int\\s+magia\\s*=\\s*[1-3]\\s*;\\s*int\\s+difesa\\s*=\\s*[1-3]\\s*;\\s*int\\s+arma\\s*=\\s*[1-3]\\s*;[\\s\\S]*$'
         },
         {
