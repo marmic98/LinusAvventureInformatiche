@@ -2,7 +2,7 @@
   "name": "LinusAvventuareInformatiche",
   "displayName": "Linus e le avventuare informatiche",
   "description": "VS Code extension that learn C programming language through storytelling",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "publisher": "MicheleMartino",
   "engines": {
     "vscode": "^1.91.0"
