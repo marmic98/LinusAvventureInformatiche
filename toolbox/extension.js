@@ -663,7 +663,7 @@ function getQuestContent(context, panel, id) {
             });
 
             async function mostraClassifica(){
-                await fetch('http://localhost:3000/api/punteggio')
+                await fetch('http://13.51.205.138:3000/api/punteggio')
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -683,7 +683,7 @@ function getQuestContent(context, panel, id) {
             let responseData = 0;
             try {
                 // Esegue la richiesta POST
-                const response = await fetch('http://localhost:3000/api/punteggio/save', {
+                const response = await fetch('http://13.51.205.138:3000/api/punteggio/save', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
